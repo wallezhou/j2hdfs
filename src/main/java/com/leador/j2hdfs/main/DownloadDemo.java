@@ -3,15 +3,19 @@
  */
 package com.leador.j2hdfs.main;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
+import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IOUtils;
+
+import com.leador.j2hdfs.util.HDFSUtils;
 
 /**
 * @ClassName: DownloadDemo
@@ -22,9 +26,28 @@ import org.apache.hadoop.io.IOUtils;
 public class DownloadDemo {
 	public static void main(String[] args) {
 		String hdfsUri = "hdfs://192.168.22.100:9000";
-		String path = "/user/hadoop/input/hadoop-test.txt";
-		String localPath = "D://我是从hdfs下载下来的.txt";
-		downFile(hdfsUri, path, localPath);
+		String srcPath = "/user/hadoop/test/";
+//		String destPath = "D:\\我是从hdfs下载下来的.txt";
+//		HDFSUtils.copyFileFromHDFS(hdfsUri, srcPath, destPath);
+		String destPath = "D:\\test";
+//		FileSystem fs = HDFSUtils.getFileSystem(hdfsUri);
+//		try {
+//			Path path = new Path(srcPath);
+//			FileStatus[] fileStatus = fs.listStatus(path);
+//			for(FileStatus f : fileStatus) {
+//				System.out.println(f.getPath().getName());
+//			}
+//		} catch (IllegalArgumentException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		HDFSUtils.copyFolderFromHDFS(hdfsUri, srcPath, destPath);
     }	
 	
 	public static void downFile(String hdfsUri, String path,String localPath) {
