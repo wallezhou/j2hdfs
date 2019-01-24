@@ -14,7 +14,7 @@ import com.leador.j2hdfs.util.HDFSUtils;
 public class DeleteDemo {
 	public static void main(String[] args) {
 		String hdfsUri = "hdfs://192.168.22.100:9000";
-		String destPath = "/user/hadoop/upload_folder_test/";
+		String destPath = "/user/test/upload_test.txt/";
 		HDFSUtils.rmDirOrFile(hdfsUri, destPath);
 	}
 }

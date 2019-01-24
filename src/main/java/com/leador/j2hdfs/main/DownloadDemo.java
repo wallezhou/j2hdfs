@@ -26,7 +26,7 @@ import com.leador.j2hdfs.util.HDFSUtils;
 public class DownloadDemo {
 	public static void main(String[] args) {
 		String hdfsUri = "hdfs://192.168.22.100:9000";
-		String srcPath = "/user/hadoop/test/";
+		String srcPath = "/user/test/test1/";
 //		String destPath = "D:\\我是从hdfs下载下来的.txt";
 //		HDFSUtils.copyFileFromHDFS(hdfsUri, srcPath, destPath);
 		String destPath = "D:\\test";
