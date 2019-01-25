@@ -1,0 +1,12 @@
+查看hdfs文件案例
+com.leador.j2hdfs.main.CatDemo
+本地文件/文件夹上传到hdfs案例
+com.leador.j2hdfs.main.UploadDemo
+hdfs文件/文件夹下载到本地案例
+com.leador.j2hdfs.main.DownloadDemo
+删除hdfs文件/文件夹案例
+com.leador.j2hdfs.main.DeleteDemo
+本地文件压缩上传到hdfs案例
+com.leador.j2hdfs.main.CompressedUploadDemo
+hdfs文件解压到本地案例
+com.leador.j2hdfs.main.DecompressionDownloadDemo
