@@ -3,6 +3,8 @@
  */
 package com.leador.j2hdfs.util;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,9 +14,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.util.Comparator;
+import java.util.List;
 
+import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
+import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
+import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -764,6 +771,18 @@ public class HDFSUtils {
 		if(!isAbsolutePath(hdfsPath)) {
 			return;
 		}
+		File file = new File(localPath);
+		if(!file.exists()) {
+			System.out.println(localPath + "不存在");
+			return;
+		}
+		//在文件同级目录下创建该文件的压缩文件，并以文件名加上.tar命名
+		String compressionPath = file.getParent()+File.separator+file.getName()+".tar";
+		CompressionUtil.tarCompression(localPath, compressionPath);
+			
+		FileInputStream fis = null;
+		FSDataOutputStream fsos = null;
+		CompressionOutputStream cos = null;
 		try {
 			//首先获取编解码器的实现类
 			if(codecClass == "") {
@@ -771,20 +790,21 @@ public class HDFSUtils {
 				codecClass = "org.apache.hadoop.io.compress.BZip2Codec";
 			}
 			Class<?> CodecClass = Class.forName(codecClass);
-			FileInputStream fis=new FileInputStream(new File(localPath));//读取本地文件
 			Configuration config=new Configuration();
 			FileSystem fs=FileSystem.get(URI.create(hdfsUri), config);
 			//通过Hadoop提供的ReflectionUtils工具类中的newInstance来获取指定的压缩格式类。这里返回的是该类的泛型，因此需要强转一下
 			CompressionCodec codec = (CompressionCodec)ReflectionUtils.newInstance(CodecClass, config);
-			OutputStream os=fs.create(new Path(hdfsPath));
+			fis = new FileInputStream(new File(compressionPath));
+			fsos = fs.create(new Path(hdfsPath));
 			//将输出流加工一下，转换为“压缩过后”的输出流
-			CompressionOutputStream cos = codec.createOutputStream(os);
-			//copy
-			IOUtils.copyBytes(fis, cos, 2048, true);
-			os.close();
-			fs.close();
-			System.out.println(codec.getClass().getName());
+			cos = codec.createOutputStream(fsos);
+			IOUtils.copyBytes(fis, cos, 1024, true);
+			if(fsos != null) fsos.close();
+			if(fs !=null ) fs.close();
+//			System.out.println(codec.getClass().getName());
 			System.out.println("成功上传文件 "+localPath+" 至"+hdfsUri+hdfsPath);
+			//删除作为中转的打包文件tar包
+			new File(compressionPath).delete();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -821,11 +841,15 @@ public class HDFSUtils {
 			InputStream is= fs.open(new Path(hdfsPath));
 			//将is解压后形成cis
 			CompressionInputStream cis = codec.createInputStream(is);
-			FileOutputStream os = new FileOutputStream(new File(localPath));
+			File localFile = new File(localPath+".tar");
+			FileOutputStream os = new FileOutputStream(localFile);
 			IOUtils.copyBytes(cis, os,2048, true);//保存到本地  最后 关闭输入输出流
 			is.close();
 			fs.close();
+			CompressionUtil.tarDecompression(localFile.getAbsolutePath(), localPath);
 			System.out.println("拷贝 "+concat(hdfsUri, hdfsPath)+" 至 "+localPath);
+			//解压完成后删除tar包
+//			localFile.delete();
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -843,4 +867,7 @@ public class HDFSUtils {
 	public static void decompressionDownload(String hdfsUri, String hdfsPath, String localPath) {
 		decompressionDownload( hdfsUri, hdfsPath, localPath, "");
 	}
+	
+	
+	
 }//class
