@@ -13,10 +13,17 @@ import com.leador.j2hdfs.util.HDFSUtils;
 */
 public class CompressedUploadDemo {
 	public static void main(String[] args) {
-		String hdfsUri = "hdfs://192.168.22.100:9000";
-		String srcPath = "D:\\upload_test.txt";
 		//需要有对/user/test/的写权限
-		String destPath = "/user/test/upload_test.txt.bz2";
-		HDFSUtils.compressedUpload(srcPath, hdfsUri, destPath);
+		String hdfsUri = "hdfs://192.168.22.100:9000";
+		//单个文件打包压缩为tar.bz2上传到hdfs
+		String localPath1 = "D:\\hdfs_test\\data_file.txt";
+		String hdfsPath1 = "/user/test/hdfs_test/data_file.txt.tar.bz2";
+		HDFSUtils.compressedUpload(localPath1, hdfsUri, hdfsPath1);
+		
+		//文件夹打包压缩为tar.bz2上传到hdfs
+		String localPath2 = "D:\\hdfs_test\\data_folder";		
+		String hdfsPath2 = "/user/test/hdfs_test/data_folder.tar.bz2";
+		HDFSUtils.compressedUpload(localPath2, hdfsUri, hdfsPath2);
 	}
+			
 }

@@ -22,7 +22,7 @@ import com.leador.j2hdfs.util.HDFSUtils;
 public class CatDemo {
 	public static void main(String[] args) {
 		String hdfsUri =  "hdfs://192.168.22.100:9000";
-		String filePath = "/user/test/test1/upload_test.txt";
+		String filePath = "/user/test/hdfs_test/data_file.txt";
 		HDFSUtils.readFile(hdfsUri, filePath);		
     }
 }

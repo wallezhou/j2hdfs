@@ -26,9 +26,17 @@ import com.leador.j2hdfs.util.HDFSUtils;
 public class DownloadDemo {
 	public static void main(String[] args) {
 		String hdfsUri = "hdfs://192.168.22.100:9000";
-		String srcPath = "/user/test/test1/";
-		String destPath = "D:\\test";
-		HDFSUtils.copyFolderFromHDFS(hdfsUri, srcPath, destPath);
+
+		
+		//下载单个文件
+		String localPath1 = "D:\\hdfs_test\\data_file_down.txt";
+		String hdfsPath1 = "/user/test/hdfs_test/data_file.txt";
+		HDFSUtils.copyFileFromHDFS(hdfsUri, hdfsPath1,localPath1);
+		
+		//下载文件夹
+		String localPath2 = "D:\\hdfs_test\\data_folder_down";		
+		String hdfsPath2 = "/user/test/hdfs_test/data_folder";
+		HDFSUtils.copyFolderFromHDFS(hdfsUri, hdfsPath2, localPath2);
     }	
 
 }

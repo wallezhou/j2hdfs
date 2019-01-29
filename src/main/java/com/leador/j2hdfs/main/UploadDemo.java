@@ -15,14 +15,17 @@ import com.leador.j2hdfs.util.HDFSUtils;
 */
 public class UploadDemo {
 	public static void main(String[] args) {
-		String hdfsUri = "hdfs://192.168.22.100:9000";
-		String srcPath = "D:\\upload-test";
 		//需要有对/user/test/的写权限
-		String destPath = "/user/test/test1";
-		HDFSUtils.putFolderToHDFS(srcPath, hdfsUri, destPath,true);
-//		String srcPath = "D:\\test";
-//		File a = new File(srcPath);
-//		String[] files = a.list();
-//		System.out.println(files.length);
+		String hdfsUri = "hdfs://192.168.22.100:9000";
+		//上传当个文件
+		String localPath1 = "D:\\hdfs_test\\data_file.txt";
+		String hdfsPath1 = "/user/test/hdfs_test/data_file.txt";
+		HDFSUtils.putFileToHDFS(localPath1, hdfsUri, hdfsPath1);
+		
+		//上传文件夹
+		String localPath2 = "D:\\hdfs_test\\data_folder";		
+		String hdfsPath2 = "/user/test/hdfs_test/data_folder";
+		HDFSUtils.putFolderToHDFS(localPath2, hdfsUri, hdfsPath2);
+
 	}
 }
