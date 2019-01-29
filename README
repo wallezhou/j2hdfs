@@ -6,7 +6,7 @@ hdfs文件/文件夹下载到本地案例
 com.leador.j2hdfs.main.DownloadDemo
 删除hdfs文件/文件夹案例
 com.leador.j2hdfs.main.DeleteDemo
-本地文件压缩上传到hdfs案例
+本地文件/文件夹自动打包压缩为tar.bz2上传到hdfs案例
 com.leador.j2hdfs.main.CompressedUploadDemo
-hdfs文件解压到本地案例
+hdfs上tar.bz2文件下载自动解压解包到本地案例
 com.leador.j2hdfs.main.DecompressionDownloadDemo
