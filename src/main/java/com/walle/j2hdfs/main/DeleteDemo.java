@@ -1,9 +1,9 @@
 /**
  * 
  */
-package com.leador.j2hdfs.main;
+package com.walle.j2hdfs.main;
 
-import com.leador.j2hdfs.util.HDFSUtils;
+import com.walle.j2hdfs.util.HDFSUtils;
 
 /**
 * @ClassName: DeleteDemo

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.leador.j2hdfs.main;
+package com.walle.j2hdfs.main;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -15,7 +15,7 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IOUtils;
 
-import com.leador.j2hdfs.util.HDFSUtils;
+import com.walle.j2hdfs.util.HDFSUtils;
 
 /**
 * @ClassName: DownloadDemo

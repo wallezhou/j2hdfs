@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.leador.j2hdfs.util;
+package com.walle.j2hdfs.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -17,12 +17,22 @@ import org.apache.commons.compress.utils.Lists;
 
 /**
 * @ClassName: CompressionUtil
-* @Description: ...
+* @Description: 编码压缩工具类
 * @author: zhouwei
 * @date: 2019年1月28日
 */
 public class CompressionUtil {
 	
+	/**
+	* @Title: tarCompression
+	* @Description: 将本地文件/文件夹打包为tar包
+	* @author: zhouwei
+	* @date: 2019年1月30日 
+	* @param srcPath
+	* @param destPath
+	* @return
+	* boolean
+	*/
 	public static boolean tarCompression(String srcPath, String destPath) {
 		try {
 			
@@ -67,6 +77,16 @@ public class CompressionUtil {
 		}
 	}
 	
+	/**
+	* @Title: getRelativePath
+	* @Description: 获取subDirectory相对于directory的相对路径
+	* @author: zhouwei
+	* @date: 2019年1月30日 
+	* @param directory
+	* @param subDirectory
+	* @return
+	* String
+	*/
 	public static String getRelativePath(String directory, String subDirectory) {
 		String relativePath = "";
 		String os = System.getProperty("os.name");
@@ -93,6 +113,16 @@ public class CompressionUtil {
 		}
 		return relativePath;
 	}
+	/**
+	* @Title: tarDecompression
+	* @Description: 将tar包解压为文件/文件夹
+	* @author: zhouwei
+	* @date: 2019年1月30日 
+	* @param srcPath
+	* @param destPath
+	* @return
+	* boolean
+	*/
 	public static boolean tarDecompression(String srcPath, String destPath) {
 		TarArchiveInputStream taris = null;
 		FileInputStream fis = null;
@@ -133,6 +163,15 @@ public class CompressionUtil {
 		return true;
 	}
 	
+	/**
+	* @Title: getFileList
+	* @Description: 获取srcPath下子文件/子文件夹的目录列表
+	* @author: zhouwei
+	* @date: 2019年1月30日 
+	* @param srcPath
+	* @return
+	* List<File>
+	*/
 	public static List<File> getFileList(String srcPath) {
 		File file = new File(srcPath);
 		List<File> fileList = Lists.newArrayList();

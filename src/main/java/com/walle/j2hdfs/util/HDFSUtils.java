@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.leador.j2hdfs.util;
+package com.walle.j2hdfs.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -767,6 +767,17 @@ public class HDFSUtils {
 		} 
 	}
 	
+	/**
+	* @Title: compressedUpload
+	* @Description: 压缩上传
+	* @author: zhouwei
+	* @date: 2019年1月30日 
+	* @param localPath
+	* @param hdfsUri
+	* @param hdfsPath
+	* @param codecClass  指定的编/解码器
+	* void
+	*/
 	public static void compressedUpload(String localPath, String hdfsUri, String hdfsPath, String codecClass) {
 		if(!isAbsolutePath(hdfsPath)) {
 			return;
@@ -823,6 +834,17 @@ public class HDFSUtils {
 		compressedUpload(localPath, hdfsUri, hdfsPath,"");
 	}
 	
+	/**
+	* @Title: decompressionDownload
+	* @Description: 解压下载到本地
+	* @author: zhouwei
+	* @date: 2019年1月30日 
+	* @param hdfsUri
+	* @param hdfsPath
+	* @param localPath  本地路径
+	* @param codecClass  指定的编/解码器
+	* void
+	*/
 	public static void decompressionDownload(String hdfsUri, String hdfsPath, String localPath, String codecClass) {
 		if(!isAbsolutePath(hdfsPath)) {
 			return;

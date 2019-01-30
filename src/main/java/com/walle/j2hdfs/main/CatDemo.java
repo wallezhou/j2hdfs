@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.leador.j2hdfs.main;
+package com.walle.j2hdfs.main;
 
 import java.io.IOException;
 import java.net.URI;
@@ -11,7 +11,7 @@ import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
-import com.leador.j2hdfs.util.HDFSUtils;
+import com.walle.j2hdfs.util.HDFSUtils;
 
 /**
 * @ClassName: Demo1
